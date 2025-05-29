@@ -1,0 +1,5 @@
+import db from "$lib/db";
+
+export async function load() {
+    return { products: await db.getProducts() };
+}
