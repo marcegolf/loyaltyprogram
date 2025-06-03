@@ -1,13 +1,8 @@
 <script>
+  import { goto } from "$app/navigation";
   import { authClient } from "$lib/auth-client";
   const session = authClient.useSession();
-  //let { form } = $props();
-  import { goto } from "$app/navigation";
-
-  let email = "";
-  let password = "";
-
-  let errorMessage = "";
+  let { email, password, errorMessage} = $state("");
 
   async function handleSignIn(event) {
     event.preventDefault();

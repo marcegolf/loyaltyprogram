@@ -2,13 +2,7 @@
     import { goto } from "$app/navigation";
     import { authClient } from "$lib/auth-client";
     const session = authClient.getSession();
-    //let { form } = $props();
-
-    let email = "";
-    let password = "";
-    let name = "";
-
-    let errorMessage = "";
+    let { name, email, password, errorMessage } = $state("");
 
     async function handleSignUp(event) {
         event.preventDefault();
@@ -25,7 +19,6 @@
             },
             onError: (ctx) => {
                 errorMessage = ctx.error.message;
-                // alert(ctx.error.message);
             }
         });
     }
