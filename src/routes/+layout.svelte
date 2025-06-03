@@ -13,7 +13,7 @@
 </script>
 
 <nav class="navbar navbar-expand-lg">
-  <div class="container-fluid">
+  <div class="container mt-3">
     <a class="navbar-brand" href="/">
       <img
         src="/logo.png"
@@ -26,39 +26,40 @@
       class="navbar-toggler"
       type="button"
       data-bs-toggle="collapse"
-      data-bs-target="#navbarNav"
-      aria-controls="navbarNav"
+      data-bs-target="#navbarNavDropdown"
+      aria-controls="navbarNavDropdown"
       aria-expanded="false"
       aria-label="Toggle navigation"
     >
       <span class="navbar-toggler-icon"></span>
     </button>
-    <div class="collapse navbar-collapse" id="navbarNav">
+    <div class="collapse navbar-collapse" id="navbarNavDropdown">
       <ul class="navbar-nav ms-auto">
         {#if $session.data}
           <li class="nav-item">
-            <a class="nav-link" aria-current="page" href="/products"
-              >Bestellung</a
-            >
+            <a class="nav-link" href="/products">Bestellung</a>
           </li>
-        {/if}
-        <li class="nav-item">
-          {#if $session.data}
+          <li class="nav-item dropdown">
             <a
-              class="nav-link"
-              aria-current="page"
-              href="/signin"
-              onclick={handleLogout}>Logout</a
+              class="nav-link dropdown-toggle"
+              href="/"
+              id="navbarDropdownMenuLink"
+              data-bs-toggle="dropdown"
+              aria-expanded="false"
             >
-          {:else}
-            <a class="nav-link" aria-current="page" href="/signin">Login</a>
-          {/if}
-        </li>
-        {#if $session.data}
-          <li class="nav-item">
-            <a class="nav-link" href="/checkout">
-              <span class="material-icons">shopping_cart</span>
+              Profil
             </a>
+            <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+              <a class="dropdown-item" href="/profile">Meine Daten</a>
+              <a class="dropdown-item" href="/checkout">Mein Warenkorb</a>
+              <a class="dropdown-item" href="/signin" onclick={handleLogout}
+                >Logout</a
+              >
+            </div>
+          </li>
+        {:else}
+          <li class="nav-item">
+            <a class="nav-link" href="/signin">Login</a>
           </li>
         {/if}
       </ul>

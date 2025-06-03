@@ -1,5 +1,28 @@
+body {
+  background-color: #000;
+  color: #fff;
+}
+
 .nav-item a {
+  color: #fff;
   font-family: 'Roboto Mono', monospace;
   font-weight: 700;
   text-transform: uppercase;
+}
+
+.dropdown-item:hover,
+.dropdown-item:focus {
+  color: #fff;
+  background-color: #000;
+}
+
+.nav-item a:hover,
+.navbar-nav .nav-link.show,
+#navbarDropdownMenuLink:hover,
+#navbarDropdownMenuLink:focus {
+  color: #fff;
+}
+
+.dropdown-menu {
+  background-color: #000;
 }
