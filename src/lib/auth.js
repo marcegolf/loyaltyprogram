@@ -25,7 +25,13 @@ export const auth = betterAuth({
         type: "string",
         required: true,
         defaultValue: "customer",
-        input: false, // don't allow user to set role
+        input: false
+      },
+      cart: {
+        type: "array",
+        required: false,
+        defaultValue: [],
+        input: true
       },
     },
   },
