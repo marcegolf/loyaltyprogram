@@ -1,47 +1,42 @@
 <script>
+  // TODO: Check enhance
+  import { enhance } from "$app/forms";
   let { product } = $props();
 </script>
 
-<div class="product-card">
-  <div>
-    <img class="img-fluid" src={product.poster} alt=""/>
-  </div>
-  <div class="details">
-    <div class="title">
-      <a href={"/products/" + product._id}>
+<div class="card h-100 bg-dark text-white">
+  <img src={product.poster} class="card-img-top" alt={product.name} />
+
+  <div class="card-body d-flex flex-column">
+    <h5 class="card-title">
+      <a
+        href={"/products/" + product._id}
+        class="text-white text-decoration-none"
+      >
         {product.name}
       </a>
-    </div>
-    <div>
-      Preis: {product.price}
-    </div>
-    <div class="ingredients">
-      <strong>Ingredients:</strong>
-      <ul>
-        {#each product.ingredients as ingredient}
-          <li>{ingredient}</li>
-        {/each}
-      </ul>
-    </div>
+    </h5>
+
+    <p class="card-text mb-2">Preis: {product.price}</p>
+
+    <!-- <strong>Ingredients:</strong>
+    <ul class="list-group list-group-flush mb-3">
+      {#each product.ingredients as ingredient}
+        <li class="list-group-item bg-dark border-dark text-white">
+          {ingredient}
+        </li>
+      {/each}
+    </ul> -->
+
+    <form method="POST" action="?/addToCart" use:enhance>
+      <input
+        type="hidden"
+        name="product"
+        value={JSON.stringify(product)}
+      />
+      <button class="btn btn-primary mt-auto">
+        In den Warenkorb
+      </button>
+    </form>
   </div>
 </div>
-
-<style>
-  .product-card {
-    border: 1px solid #555;
-    height: 100%;
-    background-color: #444;
-    color: white;
-  }
-  .details {
-    padding: 0.5em;
-  }
-  .title {
-    font-weight: bold;
-  }
-  .ingredients ul {
-    list-style-type: disc;
-    padding-left: 20px;
-    margin-top: 0.25em;
-  }
-</style>
