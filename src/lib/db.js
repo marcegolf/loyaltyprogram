@@ -123,6 +123,87 @@ async function createSale(sale) {
     return null;
 }
 
+async function getRewards() {
+    let rewards = [];
+    try {
+        const collection = db.collection("rewards");
+        const query = {};
+        rewards = await collection.find(query).toArray();
+        rewards.forEach(rewards => {
+            rewards._id = rewards._id.toString();
+        });
+    } catch (error) {
+        console.log(error.message);
+    }
+    return rewards
+}
+
+// TODO: Improve pipeline and check how if user is customer
+async function getCustomerRewardPoints(customer_id) {
+    let rewardPoints = null;
+    const pipeline = [
+            {
+                $match: {
+                    _id: new ObjectId(customer_id)
+                }
+            },
+            {
+                $lookup: {
+                    from: "sales",
+                    let: {
+                        userIdStr: {
+                            $toString: "$_id"
+                        }
+                    },
+                    pipeline: [
+                        {
+                            $match: {
+                                $expr: {
+                                    $eq: ["$user_id", "$$userIdStr"]
+                                }
+                            }
+                        }
+                    ],
+                    as: "sales"
+                }
+            },
+            {
+                $project: {
+                    totalRewardPoints: {
+                        $sum: "$sales.totalPrice"
+                    }
+                }
+            }
+        ];
+    try {
+        const collection = db.collection("users");
+        const result = await collection.aggregate(pipeline).toArray();
+        if (result.length > 0) {
+            rewardPoints = result[0].totalRewardPoints || 0;
+        }
+    } catch (error) {
+        console.log(error);
+    }
+    return rewardPoints;
+}
+
+async function getLevels() {
+    let levels = [];
+    try {
+        const collection = db.collection("levels");
+        const query = {};
+        levels = await collection.find(query).toArray();
+        levels.forEach(level => {
+            level._id = level._id.toString();
+        });
+        // Sort from lowest to highest
+        levels.sort((a, b) => a.points_needed - b.points_needed);
+    } catch (error) {
+        console.log(error.message);
+    }
+    return levels;
+}
+
 export default {
     getProducts,
     getProduct,
@@ -131,5 +212,8 @@ export default {
     getCustomer,
     getCustomerCart,
     updateCustomer,
-    createSale
+    createSale,
+    getRewards,
+    getCustomerRewardPoints,
+    getLevels
 }
