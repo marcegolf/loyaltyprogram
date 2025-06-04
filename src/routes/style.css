@@ -27,18 +27,22 @@ body {
   background-color: #000;
 }
 
-.btn {
-  background-color: #e9d356;
-  color: #000;
-  border: none;
-}
-
-.btn:hover {
-  background-color: #000;
-  color: #e9d356;
-  border: none;
-}
-
 .progress-bar {
   background-color: #e9d356;
+}
+
+/* Bootstrap button css variable override */
+.btn {
+  --bs-btn-bg:    #e9d356;
+  --bs-btn-color: #000;
+  --bs-btn-border-color: #e9d356;
+  --bs-btn-hover-color: #000;
+  --bs-btn-hover-bg: #bfad46;
+  --bs-btn-hover-border-color: #bfad46;
+  --bs-btn-active-color: #000;
+  --bs-btn-active-bg: #bfad46;
+  --bs-btn-active-border-color: #bfad46;
+  --bs-btn-disabled-color: #000;
+  --bs-btn-disabled-bg: #bfad46;
+  --bs-btn-disabled-border-color: #bfad46;
 }
