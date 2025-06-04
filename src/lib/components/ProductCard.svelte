@@ -27,7 +27,7 @@
         name="product"
         value={JSON.stringify(product)}
       />
-      <button class="btn btn-primary mt-auto">
+      <button class="btn mt-auto">
         In den Warenkorb
       </button>
       </form>

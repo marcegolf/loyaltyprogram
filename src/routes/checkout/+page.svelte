@@ -27,6 +27,6 @@
     <h2>CHF {totalCost}</h2>
     <form method="POST" action="?/makeCheckout" use:enhance>
         <input type="hidden" name="cart" value={JSON.stringify(data.cart)} />
-        <button class="btn btn-primary mt-2">Checkout</button>
+        <button class="btn mt-2">Checkout</button>
     </form>
 </div>

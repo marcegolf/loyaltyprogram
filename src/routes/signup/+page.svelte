@@ -65,6 +65,6 @@
     <div class="mb-3 text-end">
       <a aria-current="page" href="/signin">Sign In</a>
     </div>
-    <button type="submit" class="btn btn-primary w-100">Sign up</button>
+    <button type="submit" class="btn w-100">Sign up</button>
   </form>
 </div>

@@ -23,7 +23,7 @@
         placeholder="Enter ingredients separated by commas"
     />
 </div>
-  <button type="submit" class="btn btn-primary"> Add products </button>
+  <button type="submit" class="btn"> Add products </button>
 </form>
 
 {#if form?.success}
