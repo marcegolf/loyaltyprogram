@@ -16,7 +16,7 @@
                     class="card-body d-flex justify-content-between align-items-center"
                 >
                     <span>{item.name}</span>
-                    <span>CHF {item.price.toFixed(2)}</span>
+                    <span>CHF {item.price}</span>
                 </div>
             </div>
         </div>
@@ -24,7 +24,7 @@
 </div>
 
 <div class="mt-4 text-end">
-    <h2>CHF {totalCost.toFixed(2)}</h2>
+    <h2>CHF {totalCost}</h2>
     <form method="POST" action="?/makeCheckout" use:enhance>
         <input type="hidden" name="cart" value={JSON.stringify(data.cart)} />
         <button class="btn btn-primary mt-2">Checkout</button>
