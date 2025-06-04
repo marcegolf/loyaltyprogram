@@ -26,3 +26,19 @@ body {
 .dropdown-menu {
   background-color: #000;
 }
+
+.btn {
+  background-color: #e9d356;
+  color: #000;
+  border: none;
+}
+
+.btn:hover {
+  background-color: #000;
+  color: #e9d356;
+  border: none;
+}
+
+.progress-bar {
+  background-color: #e9d356;
+}
