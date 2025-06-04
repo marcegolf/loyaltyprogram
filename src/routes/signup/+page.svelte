@@ -31,7 +31,7 @@
       {errorMessage}
     </div>
   {/if}
-  <form on:submit={handleSignUp}>
+  <form onsubmit={handleSignUp}>
     <div class="mb-3">
       <label for="emailInput" class="form-label">Full Name</label>
       <input
