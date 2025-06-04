@@ -3,11 +3,11 @@
 </script>
 
 <div class="container py-4">
-  <a href="/products" class="btn btn-link mb-3 text-secondary">
+  <a href="/products" class="btn mb-3">
     Back to products
   </a>
 
-  <div class="card bg-dark text-white">
+  <div class="card bg-transparent text-white">
     <div class="row g-0">
       <div class="col-md-4">
         <img
@@ -23,7 +23,7 @@
           <!-- <strong>Zutaten:</strong> -->
           <ul class="list-group list-group-flush mb-3">
             {#each data.product.ingredients as ingredient}
-              <li class="list-group-item bg-dark border-secondary text-white">
+              <li class="list-group-item bg-transparent border-secondary text-white">
                 {ingredient}
               </li>
             {/each}
