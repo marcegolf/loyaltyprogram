@@ -2,7 +2,7 @@
     let { form } = $props();
 </script>
 
-<a href="/products" class="back-link">Back</a>
+<a href="/products" class="btn mb-3"> Zurück </a>
 <h1>Add a product</h1>
 <form method="POST" action="?/create">
   <div class="mb-3">
@@ -23,17 +23,9 @@
         placeholder="Enter ingredients separated by commas"
     />
 </div>
-  <button type="submit" class="btn"> Add products </button>
+  <button type="submit" class="btn">Produkt hinzufügen</button>
 </form>
 
 {#if form?.success}
-  <p>Added new product to catalog</p>
+  <p>Neues Produkt wurde erfasst!</p>
 {/if}
-
-<style>
-  .back-link {
-      text-decoration: none;
-      color: #999;
-      font-size: 14px;
-    }
-</style>

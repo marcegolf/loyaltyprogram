@@ -11,7 +11,7 @@ export const actions = {
     makeCheckout: async ({ request, locals }) => {
         // TODO: use locals directly
         const user = locals.user;
-        const data = await request.formData()
+        const data = await request.formData();
 
         const cart = JSON.parse(data.get("cart"));
 

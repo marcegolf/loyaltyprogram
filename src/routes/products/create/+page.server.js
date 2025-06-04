@@ -14,7 +14,7 @@ export const actions = {
             name: data.get("name"),
             price: data.get("price"),
             ingredients: ingredients,
-            poster: "/images/placeholder.png"
+            poster: "/images/placeholder.jpg"
         }
 
         await db.createProduct(product);

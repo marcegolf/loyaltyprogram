@@ -14,7 +14,6 @@
         },
         {
             onSuccess: (ctx) => {
-                console.log(ctx.data.name);
                 goto("/");
             },
             onError: (ctx) => {

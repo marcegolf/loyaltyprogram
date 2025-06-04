@@ -37,6 +37,9 @@
       <ul class="navbar-nav ms-auto">
         {#if $session.data}
           <li class="nav-item">
+            <a class="nav-link" href="/">Rewards</a>
+          </li>
+          <li class="nav-item">
             <a class="nav-link" href="/products">Bestellung</a>
           </li>
           <li class="nav-item dropdown">
