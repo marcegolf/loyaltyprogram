@@ -1,9 +1,13 @@
-import db from "$lib/db";
 import { redirect } from "@sveltejs/kit";
+import db from "$lib/db";
 
 export async function load({ params, locals }) {
+    // Check if user is authenticated
+    if (!locals.user) {
+        throw redirect(302, '/signin');
+    }
+
     return {
-        // Get product by id
         product: await db.getProduct(params.id),
         user: locals.user
     }

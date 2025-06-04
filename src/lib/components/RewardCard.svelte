@@ -24,7 +24,7 @@
           disabled={reward.points > availablePoints}
           onclick={alertRedeem}
         >
-          Redeem
+          Einlösen
         </button>
       </form>
     </div>

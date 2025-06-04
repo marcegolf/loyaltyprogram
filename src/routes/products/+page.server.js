@@ -1,8 +1,12 @@
-// src/routes/products/+page.server.js
+import { redirect } from "@sveltejs/kit";
 import db from "$lib/db";
 
-// TODO: what is load and locals
 export async function load({ locals }) {
+    // Check if user is authenticated
+    if (!locals.user) {
+        throw redirect(302, '/signin');
+    }
+
     return {
         products: await db.getProducts(),
         user: locals.user
