@@ -7,13 +7,10 @@
 
     // just do alerts as a feedback. nothing fancy
     function alertCheckout() {
-        alert(
-            `Wir haben deine Bestellung für CHF ${totalCost} erhalten!`,
-        );
+        alert(`Wir haben deine Bestellung für CHF ${totalCost} erhalten!`);
     }
 </script>
 
-<h1>Checkout</h1>
 <div class="row flex-column">
     {#each data.cart as item}
         <div class="col-12 mb-3">
@@ -29,10 +26,25 @@
     {/each}
 </div>
 
-<div class="mt-4 text-end">
-    <h2>CHF {totalCost}</h2>
-    <form method="POST" action="?/makeCheckout" use:enhance>
-        <input type="hidden" name="cart" value={JSON.stringify(data.cart)} />
-        <button class="btn mt-2" onclick={alertCheckout}>Checkout</button>
-    </form>
-</div>
+{#if data.cart.length > 0}
+    <div class="mt-4 text-end">
+        <h2>CHF {totalCost}</h2>
+        <form method="POST" action="?/makeCheckout" use:enhance>
+            <input
+                type="hidden"
+                name="cart"
+                value={JSON.stringify(data.cart)}
+            />
+            <button class="btn w-100 mt-2" onclick={alertCheckout}
+                >Bestellen</button
+            >
+        </form>
+    </div>
+{:else}
+    <div
+        class="col-12 d-flex justify-content-center align-items-center"
+        style="padding-top: 100px;"
+    >
+        <p>Dein Warenkorb ist leer.</p>
+    </div>
+{/if}
