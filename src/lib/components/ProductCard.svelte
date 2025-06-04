@@ -2,6 +2,11 @@
   // TODO: Check enhance
   import { enhance } from "$app/forms";
   let { product } = $props();
+
+  // just do alerts as a feedback. nothing fancy
+  function alertOrder() {
+    alert(`Du hast ${product.name} für CHF ${product.price} in den Warenkorb gelegt!`);
+  }
 </script>
 
 <div class="d-flex justify-content-center">
@@ -27,7 +32,7 @@
         name="product"
         value={JSON.stringify(product)}
       />
-      <button class="btn mt-auto">
+      <button class="btn mt-auto" onclick={alertOrder}>
         In den Warenkorb
       </button>
       </form>

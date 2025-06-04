@@ -1,10 +1,16 @@
 <script>
     import { enhance } from "$app/forms";
     let { data } = $props();
-    // TODO: State of total cost does not update after making a checkout
-    let { totalCost } = $state(0);
+    let totalCost = $derived(
+        data.cart.reduce((sum, item) => sum + item.price, 0),
+    );
 
-    totalCost = data.cart.reduce((sum, item) => sum + item.price, 0);
+    // just do alerts as a feedback. nothing fancy
+    function alertCheckout() {
+        alert(
+            `Wir haben deine Bestellung für CHF ${totalCost} erhalten!`,
+        );
+    }
 </script>
 
 <h1>Checkout</h1>
@@ -27,6 +33,6 @@
     <h2>CHF {totalCost}</h2>
     <form method="POST" action="?/makeCheckout" use:enhance>
         <input type="hidden" name="cart" value={JSON.stringify(data.cart)} />
-        <button class="btn mt-2">Checkout</button>
+        <button class="btn mt-2" onclick={alertCheckout}>Checkout</button>
     </form>
 </div>

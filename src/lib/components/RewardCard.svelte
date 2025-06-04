@@ -1,5 +1,10 @@
 <script>
-  let { reward } = $props();
+  let { reward, availablePoints } = $props();
+
+  // just do alerts as a feedback. nothing fancy
+  function alertRedeem() {
+    alert(`Du hast ${reward.name} für ${reward.points} Punkte eingelöst!`);
+  }
 </script>
 
 <div class="d-flex justify-content-center">
@@ -14,7 +19,13 @@
 
       <form method="POST" action="?/redeemReward" use:enhance>
         <input type="hidden" name="reward" value={JSON.stringify(reward)} />
-        <button class="btn btn-primary mt-auto w-100"> Redeem </button>
+        <button
+          class="btn mt-auto w-100"
+          disabled={reward.points > availablePoints}
+          onclick={alertRedeem}
+        >
+          Redeem
+        </button>
       </form>
     </div>
   </div>
