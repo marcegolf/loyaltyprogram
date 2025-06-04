@@ -13,13 +13,6 @@ export const auth = betterAuth({
   },
   user: {
     modelName: "users",
-    fields: {
-      name: "full_name",
-      email: "email",
-      emailVerified: "email_verified",
-      createdAt: "created_at",
-      updatedAt: "updated_at"
-    },
     additionalFields: {
       role: {
         type: "string",
@@ -42,40 +35,9 @@ export const auth = betterAuth({
     },
   },
   account: {
-    modelName: "accounts",
-    fields: {
-      userId: "user_id",
-      accountId: "account_id",
-      providerId: "provider_id",
-      accessToken: "access_token",
-      refreshToken: "refresh_token",
-      accessTokenExpiresAt: "access_token_expires_at",
-      refreshTokenExpiresAt: "refresh_token_expires_at",
-      scope: "scope",
-      idToken: "id_token",
-      password: "password",
-      createdAt: "created_at",
-      updatedAt: "updated_at",
-    },
+    modelName: "accounts"
   },
   session: {
-    modelName: "sessions",
-    fields: {
-      userId: "user_id",
-      token: "token",
-      expiresAt: "expires_at",
-      createdAt: "created_at",
-      updatedAt: "updated_at",
-    },
-  },
-  verification: {
-    modelName: "verifications",
-    fields: {
-      identifier: "identifier",
-      value: "value",
-      expiresAt: "expires_at",
-      createdAt: "created_at",
-      updatedAt: "updated_at",
-    },
-  },
+    modelName: "sessions"
+  }
 });
