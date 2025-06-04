@@ -46,7 +46,7 @@
     <div class="row">
         <div class="col-lg-12 py-4">
             <div class="text-center mb-4">
-                <h1>Welcome back, {data.user.name}!</h1>
+                <h1>Wilkommen zurück, {data.user.name}!</h1>
                 <p>Du hast aktuell <strong>{available_points} Punkte</strong> für Rewards.</p>
             </div>
             <div class="level-card mb-5">

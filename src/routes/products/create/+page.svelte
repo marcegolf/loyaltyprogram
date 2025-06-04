@@ -3,7 +3,7 @@
 </script>
 
 <a href="/products" class="btn mb-3"> Zurück </a>
-<h1>Add a product</h1>
+<h1>Neues Produkt erfassen</h1>
 <form method="POST" action="?/create">
   <div class="mb-3">
     <label for="" class="form-label">Name</label>
@@ -20,7 +20,7 @@
         id="ingredients"
         class="form-control"
         type="text"
-        placeholder="Enter ingredients separated by commas"
+        placeholder="Gib die Zutaten getrennt durch Kommas ein"
     />
 </div>
   <button type="submit" class="btn">Produkt hinzufügen</button>
