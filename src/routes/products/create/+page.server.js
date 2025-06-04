@@ -1,4 +1,12 @@
+import { redirect } from "@sveltejs/kit";
 import db from "$lib/db";
+
+export async function load({ locals }) {
+    // Check if user is authenticated
+    if (!locals.user) {
+        throw redirect(302, '/signin');
+    }
+}
 
 export const actions = {
     create: async ({ request }) => {
