@@ -12,11 +12,11 @@ export async function load() {
 }
 
 export const actions = {
-    addToCart: async (event) => {
+    addToCart: async ({ request, locals }) => {
         // TODO: Check if user has role customer
-        const user = event.locals.user;
-
-        const data = await event.request.formData();
+        // TODO: Check if chan be done with locals.user
+        const user = locals.user;
+        const data = await request.formData();
         const product = JSON.parse(data.get("product"));
 
         user.cart = user.cart || [];
