@@ -2,12 +2,10 @@
 import db from "$lib/db";
 
 // TODO: what is load and locals
-// export async function load({ locals }) {
-export async function load() {
-    // you can also expose the user to the page if you want
+export async function load({ locals }) {
     return {
         products: await db.getProducts(),
-        // user: locals.user
+        user: locals.user
     };
 }
 
