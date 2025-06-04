@@ -2,7 +2,7 @@ import db from "$lib/db";
 
 export async function load({ locals }) {
     return {
-        totalRewardPoints: await db.getCustomerRewardPoints(locals.user.id),
+        total_points: await db.getCustomerRewardPoints(locals.user.id),
         rewards: await db.getRewards(),
         levels: await db.getLevels(),
         user: locals.user

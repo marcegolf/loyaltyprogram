@@ -117,9 +117,11 @@ async function updateCustomer(customer) {
         const collection = db.collection("users");
         const query = { _id: new ObjectId(customer.id) };
 
+        // Duplicate the customer object to avoid mutating the original
+        const updatedCustomer = { ...customer };
         // Remove stringified id before updating
-        delete customer.id;
-        const result = await collection.updateOne(query, { $set: customer });
+        delete updatedCustomer.id;
+        const result = await collection.updateOne(query, { $set: updatedCustomer });
 
         if (result.matchedCount === 0) {
             console.log("No customer with id " + customer.id);
@@ -163,46 +165,28 @@ async function getRewards() {
     return rewards;
 }
 
-// TODO: Improve pipeline and check how if user is customer
 async function getCustomerRewardPoints(customer_id) {
-    let rewardPoints = null;
-    const pipeline = [
-        {
-            $match: {
-                _id: new ObjectId(customer_id)
-            }
-        },
-        {
-            $lookup: {
-                from: "sales",
-                let: {
-                    userIdStr: {
-                        $toString: "$_id"
+    let rewardPoints = 0;
+    try {
+        const pipeline = [
+            {
+                $match: {
+                    user_id: customer_id
+                }
+            },
+            {
+                $group: {
+                    _id: customer_id,
+                    totalRewardPoints: {
+                        $sum: "$totalPrice"
                     }
-                },
-                pipeline: [
-                    {
-                        $match: {
-                            $expr: {
-                                $eq: ["$user_id", "$$userIdStr"]
-                            }
-                        }
-                    }
-                ],
-                as: "sales"
-            }
-        },
-        {
-            $project: {
-                totalRewardPoints: {
-                    $sum: "$sales.totalPrice"
                 }
             }
-        }
-    ];
-    try {
-        const collection = db.collection("users");
+        ];
+
+        const collection = db.collection("sales");
         const result = await collection.aggregate(pipeline).toArray();
+        // TODO: This is not optimal and should have an error handling
         if (result.length > 0) {
             rewardPoints = result[0].totalRewardPoints || 0;
         }

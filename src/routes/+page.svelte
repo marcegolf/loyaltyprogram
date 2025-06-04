@@ -3,43 +3,43 @@
     let { data } = $props();
 
     // TODO: Improve and add error handling
-    let usedRewardPoints = $derived(
+    let used_points = $derived(
         data.user.rewards.reduce((sum, reward) => sum + reward.points, 0),
     );
-    let availablePoints = $derived(data.totalRewardPoints - usedRewardPoints);
+    let available_points = $derived(data.total_points - used_points);
 
-    let currentLevel = $derived.by(() => {
-        let currentLevel = data.levels[0];
+    let current_level = $derived.by(() => {
+        let current = data.levels[0];
         for (const level of data.levels) {
-            if (data.totalRewardPoints >= level.points_needed) {
-                currentLevel = level;
+            if (data.total_points >= level.points_needed) {
+                current = level;
             } else {
                 break;
             }
         }
-        return currentLevel;
+        return current;
     });
 
     // TODO: Improve and add error handling
-    let nextLevel = $derived.by(() => {
+    let next_level = $derived.by(() => {
         // Find the next level after current
-        const currentIndex = data.levels.findIndex(
-            (level) => level._id === currentLevel._id,
+        const current_index = data.levels.findIndex(
+            (level) => level._id === current_level._id,
         );
-        return currentIndex < data.levels.length - 1
-            ? data.levels[currentIndex + 1]
+        return current_index < data.levels.length - 1
+            ? data.levels[current_index + 1]
             : null;
     });
 
     // TODO: Improve and add error handling
-    let levelProgress = $derived.by(() => {
+    let level_progress = $derived.by(() => {
         const progress =
-            (data.totalRewardPoints / nextLevel.points_needed) * 100;
+            (data.total_points / next_level.points_needed) * 100;
 
         return Math.round(progress);
     });
 
-    let pointsToNextLevel = $derived(nextLevel.points_needed - data.totalRewardPoints);
+    let pointsToNextLevel = $derived(next_level.points_needed - data.total_points);
 </script>
 
 <div class="container-fluid">
@@ -47,15 +47,15 @@
         <div class="col-lg-12 py-4">
             <div class="text-center mb-4">
                 <h1>Welcome back, {data.user.name}!</h1>
-                <p>Du hast aktuell <strong>{availablePoints} Punkte</strong> für Rewards.</p>
+                <p>Du hast aktuell <strong>{available_points} Punkte</strong> für Rewards.</p>
             </div>
             <div class="level-card mb-5">
                 <div class="level-card-body">
                     <div class="row align-items-center">
                         <div class="col-4 text-center">
-                            <div class="level-title">{currentLevel.name}</div>
+                            <div class="level-title">{current_level.name}</div>
                             <div class="points-big">
-                                {data.totalRewardPoints}
+                                {data.total_points}
                             </div>
                             <div class="points-label">
                                 Punkte seit Beginn
@@ -67,8 +67,8 @@
                                     <div
                                         class="progress-bar"
                                         role="progressbar"
-                                        style="width: {levelProgress}%;"
-                                        aria-valuenow={levelProgress}
+                                        style="width: {level_progress}%;"
+                                        aria-valuenow={level_progress}
                                         aria-valuemin="0"
                                         aria-valuemax="100"
                                     ></div>
@@ -78,9 +78,9 @@
                             <div class="points-label">Fehlende Punkte</div>
                         </div>
                         <div class="col-4 text-center">
-                            <div class="level-title">{nextLevel.name}</div>
+                            <div class="level-title">{next_level.name}</div>
                             <div class="points-big">
-                                {nextLevel.points_needed}
+                                {next_level.points_needed}
                             </div>
                             <div class="points-label">
                                 Punkte für nächstes Level
@@ -95,7 +95,7 @@
                 <div class="row g-4">
                     {#each data.rewards as reward}
                         <div class="col-lg-4 col-md-6 col-12 d-flex">
-                            <RewardCard {reward} {availablePoints}></RewardCard>
+                            <RewardCard {reward} availablePoints={available_points}></RewardCard>
                         </div>
                     {/each}
                 </div>
