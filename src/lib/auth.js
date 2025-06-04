@@ -33,6 +33,12 @@ export const auth = betterAuth({
         defaultValue: [],
         input: true
       },
+      rewards: {
+        type: "array",
+        required: false,
+        defaultValue: [],
+        input: true
+      },
     },
   },
   account: {
