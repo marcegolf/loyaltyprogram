@@ -14,6 +14,8 @@ async function getProducts() {
         products.forEach(products => {
             products._id = products._id.toString();
         });
+        // Sort price lowest to highest
+        products.sort((a, b) => a.price - b.price);
     } catch (error) {
         console.log(error.message);
     }
@@ -42,6 +44,24 @@ async function createProduct(product) {
         const collection = db.collection("products");
         const result = await collection.insertOne(product);
         return result.insertedId.toString;
+    } catch (error) {
+        console.log(error.message);
+    }
+    return null;
+}
+
+async function deleteProduct(id) {
+    try {
+        const collection = db.collection("products");
+        const query = { _id: new ObjectId(id) };
+        const result = await collection.deleteOne(query);
+
+        if (result.deletedCount === 0) {
+            console.log("No product with id " + id);
+        } else {
+            console.log("Product with id " + id + " has been successfully deleted.");
+            return id;
+        }
     } catch (error) {
         console.log(error.message);
     }
@@ -96,6 +116,9 @@ async function updateCustomer(customer) {
     try {
         const collection = db.collection("users");
         const query = { _id: new ObjectId(customer.id) };
+
+        // Remove stringified id before updating
+        delete customer.id;
         const result = await collection.updateOne(query, { $set: customer });
 
         if (result.matchedCount === 0) {
@@ -129,52 +152,54 @@ async function getRewards() {
         const collection = db.collection("rewards");
         const query = {};
         rewards = await collection.find(query).toArray();
-        rewards.forEach(rewards => {
-            rewards._id = rewards._id.toString();
+        rewards.forEach(reward => {
+            reward._id = reward._id.toString();
         });
+        // Sort from lowest to highest point reward
+        rewards.sort((a, b) => a.points - b.points);
     } catch (error) {
         console.log(error.message);
     }
-    return rewards
+    return rewards;
 }
 
 // TODO: Improve pipeline and check how if user is customer
 async function getCustomerRewardPoints(customer_id) {
     let rewardPoints = null;
     const pipeline = [
-            {
-                $match: {
-                    _id: new ObjectId(customer_id)
-                }
-            },
-            {
-                $lookup: {
-                    from: "sales",
-                    let: {
-                        userIdStr: {
-                            $toString: "$_id"
-                        }
-                    },
-                    pipeline: [
-                        {
-                            $match: {
-                                $expr: {
-                                    $eq: ["$user_id", "$$userIdStr"]
-                                }
+        {
+            $match: {
+                _id: new ObjectId(customer_id)
+            }
+        },
+        {
+            $lookup: {
+                from: "sales",
+                let: {
+                    userIdStr: {
+                        $toString: "$_id"
+                    }
+                },
+                pipeline: [
+                    {
+                        $match: {
+                            $expr: {
+                                $eq: ["$user_id", "$$userIdStr"]
                             }
                         }
-                    ],
-                    as: "sales"
-                }
-            },
-            {
-                $project: {
-                    totalRewardPoints: {
-                        $sum: "$sales.totalPrice"
                     }
+                ],
+                as: "sales"
+            }
+        },
+        {
+            $project: {
+                totalRewardPoints: {
+                    $sum: "$sales.totalPrice"
                 }
             }
-        ];
+        }
+    ];
     try {
         const collection = db.collection("users");
         const result = await collection.aggregate(pipeline).toArray();
@@ -182,7 +207,7 @@ async function getCustomerRewardPoints(customer_id) {
             rewardPoints = result[0].totalRewardPoints || 0;
         }
     } catch (error) {
-        console.log(error);
+        console.log(error.message);
     }
     return rewardPoints;
 }
@@ -208,6 +233,7 @@ export default {
     getProducts,
     getProduct,
     createProduct,
+    deleteProduct,
     getCustomers,
     getCustomer,
     getCustomerCart,
