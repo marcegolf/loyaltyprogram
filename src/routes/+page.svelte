@@ -46,19 +46,6 @@
                 <div class="user-name">{data.user.name}</div>
             </div>
 
-            <div class="row mb-4">
-                <div class="col">
-                    <div class="stat-number">{data.totalRewardPoints}</div>
-                    <div class="stat-label">Your total Points</div>
-                </div>
-            </div>
-            <div class="row mb-4">
-                <div class="col">
-                    <div class="stat-number">{availablePoints}</div>
-                    <div class="stat-label">Available Points Balance</div>
-                </div>
-            </div>
-
             <div class="mb-4">
                 <h5>Your E-mail</h5>
                 <div class="info-text">{data.user.email}</div>
@@ -81,9 +68,9 @@
                             <div class="points-big">
                                 {data.totalRewardPoints}
                             </div>
-                            <div class="points-label">Your total Points</div>
+                            <div class="points-label">All time total Points</div>
                         </div>
-                        <div class="col-4">
+                        <div class="col-4 text-center">
                             <!-- Progress Bar Container -->
                             <div class="progress-container">
                                 <div class="progress">
@@ -96,7 +83,9 @@
                                         aria-valuemax="100"
                                     ></div>
                                 </div>
-                            </div>
+                            </div> 
+                            <div class="points-big">{availablePoints}</div>
+                            <div class="points-label">Available Points</div>
                         </div>
                         <div class="col-4 text-center">
                             <div class="level-title">{nextLevel.name}</div>
@@ -114,7 +103,7 @@
                 <div class="row g-4">
                     {#each data.rewards as reward}
                         <div class="col-lg-4 col-md-6 col-12 d-flex">
-                            <RewardCard {reward}></RewardCard>
+                            <RewardCard {reward} {availablePoints}></RewardCard>
                         </div>
                     {/each}
                 </div>
