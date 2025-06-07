@@ -8,6 +8,11 @@ const db = client.db("loyaltyprogram");
  
 export const auth = betterAuth({
   database: mongodbAdapter(db),
+  trustedOrigins: [
+    "http://localhost:*", 
+    "https://localhost:*",
+    "https://fewsecs-loyaltyprogram.azurewebsites.net"
+  ],
   emailAndPassword: {
     enabled: true
   },
